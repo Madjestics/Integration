@@ -174,10 +174,6 @@ public class MovieServiceImpl implements MovieService {
         if (movie.getTitle().length() > 100) throw new ValidationException("Название фильма должно быть менее 100 символов");
         if (movie.getYear() == null || movie.getYear() < 1900 || movie.getYear() > 2100)
             throw new ValidationException("Год выхода фильма должен быть между 1900 и 2100");
-        if (movie.getDuration() == null || movie.getDuration().isBefore(LocalTime.MIN))
-            throw new ValidationException("Длительность фильма должна быть больше 0 секунд");
-        if (movie.getRating() == null || movie.getRating() < 0 || movie.getRating() > 10)
-            throw new ValidationException("Рейтинг фильма должен быть между 0 и 10 баллами");
         if (!StringUtils.hasText(movie.getGenre())) throw new ValidationException("Жанр фильма не может быть пустым");
 
         if (movie.getDirector() == null)

@@ -1,33 +1,73 @@
 import React, { useEffect, useState } from 'react';
-import { List, Card, message } from 'antd';
+import {message, Table, Tabs} from 'antd';
 import { apiFetch } from '../services/api';
 
 
 export default function Recommendations(){
     const [recs, setRecs] = useState([]);
+    const [watched, setWatched] = useState([]);
     const [loading, setLoading] = useState(false);
 
 
     async function load(){
         const userId = localStorage.getItem('userId');
-        if(!userId) return message.warn('Please login to see recommendations');
+        if (!userId) return message.warn('Login to see recommendations');
         setLoading(true);
         try{
-            const data = await apiFetch(`/api/preferences/recommendations?userId=${userId}`, {}, 'prefs');
-            setRecs(data);
-        }catch(e){ message.error(e.message); }
-        setLoading(false);
+            const [recsData, watchedData] = await Promise.all([
+                apiFetch(`/api/preferences/recommendations?userId=${userId}`, {}, 'prefs'),
+                apiFetch(`/api/preferences/watched?userId=${userId}`, {}, 'prefs')
+            ]);
+            setRecs(recsData ?? []);
+            setWatched(watchedData ?? []);
+        } catch(e) {
+            message.error(e.message);
+        } finally {
+            setLoading(false);
+        }
     }
 
 
     useEffect(()=>{ load(); },[]);
 
+    const columns = [
+        { title: 'Id', dataIndex: 'id', key: 'id' },
+        { title: 'Title', dataIndex: 'title', key: 'title' },
+        { title: 'Year', dataIndex: 'year', key: 'year' },
+        { title: 'Director', dataIndex: 'director', key: 'director'}
+    ];
 
     return (
-        <List grid={{ gutter: 16, column: 3 }} dataSource={recs} loading={loading} renderItem={item => (
-            <List.Item>
-                <Card title={item.title}>{item.description}</Card>
-            </List.Item>
-        )} />
+        <Tabs
+            defaultActiveKey="1"
+            items={[
+                {
+                    key: '1',
+                    label: 'Recommendations',
+                    children: (
+                        <Table
+                            rowKey="id"
+                            dataSource={recs}
+                            loading={loading}
+                            columns={columns}
+                            pagination={{ pageSize: 5 }}
+                        />
+                    )
+                },
+                {
+                    key: '2',
+                    label: 'Watched movies',
+                    children: (
+                        <Table
+                            rowKey="id"
+                            dataSource={watched}
+                            loading={loading}
+                            columns={columns}
+                            pagination={{ pageSize: 5 }}
+                        />
+                    )
+                }
+            ]}
+        />
     );
 }

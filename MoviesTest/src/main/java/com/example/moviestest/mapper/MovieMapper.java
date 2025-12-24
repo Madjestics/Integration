@@ -19,7 +19,6 @@ public class MovieMapper {
                 dto.getTitle(),
                 dto.getYear(),
                 dto.getDuration(),
-                dto.getRating(),
                 dto.getGenre(),
                 director,
                 dto.getDescription()
@@ -32,7 +31,6 @@ public class MovieMapper {
                 movie.getTitle(),
                 movie.getYear(),
                 movie.getDuration(),
-                movie.getRating(),
                 movie.getGenre(),
                 movie.getDirector().getFio(),
                 movie.getDescription()

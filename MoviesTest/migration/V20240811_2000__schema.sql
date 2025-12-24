@@ -13,8 +13,7 @@ CREATE TABLE IF NOT EXISTS public.movie
     title text NOT NULL,
     year integer NOT NULL,
     director bigint NOT NULL,
-    duration time without time zone NOT NULL,
-    rating float4 NOT NULL,
+    duration time without time zone,
     genre text NOT NULL,
     PRIMARY KEY (id)
 );

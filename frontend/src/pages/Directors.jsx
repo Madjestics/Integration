@@ -38,6 +38,7 @@ export default function Directors(){
     const columns = [
         { title: 'Id', dataIndex: 'id', key: 'id' },
         { title: 'Fio', dataIndex: 'fio', key: 'fio', ellipsis: true },
+        { title: 'Movies', dataIndex: 'movies', key: 'movies'}
     ];
 
     return (
@@ -57,7 +58,6 @@ export default function Directors(){
 
             <Modal title="Add Director" open={open} onCancel={()=>setOpen(false)} footer={null}>
                 <Form form={form} layout="vertical" onFinish={onCreate}>
-                    <Form.Item name="id" label="id" rules={[{required:true}]}><Input/></Form.Item>
                     <Form.Item name="fio" label="Fio"><Input.TextArea rows={4}/></Form.Item>
                     <Form.Item>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>

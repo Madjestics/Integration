@@ -11,7 +11,6 @@ export default function AppMenu() {
         { key: '/directors', label: <Link to="/directors">Directors</Link> },
         { key: '/recommendations', label: <Link to="/recommendations">Recommendations</Link> },
         { key: '/prefs', label: <Link to="/prefs">Preferences</Link> },
-        { key: '/register', label: <Link to="/register">Register</Link> },
     ];
 
     return (

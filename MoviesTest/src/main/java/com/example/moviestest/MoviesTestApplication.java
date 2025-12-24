@@ -9,10 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 @EnableJpaRepositories
-public class WebfluxTestApplication {
+public class MoviesTestApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WebfluxTestApplication.class, args);
+        SpringApplication.run(MoviesTestApplication.class, args);
     }
 
 

@@ -33,8 +33,6 @@ public class Movie {
 
     private LocalTime duration;
 
-    private Double rating;
-
     private String genre;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -46,13 +44,12 @@ public class Movie {
 
     private String description;
 
-    public Movie(Long id, String title, Integer year, LocalTime duration, Double rating, String genre, Director director, String description) {
+    public Movie(Long id, String title, Integer year, LocalTime duration, String genre, Director director, String description) {
         this.id = id;
         this.title = title;
         this.year = year;
         this.duration = duration;
         this.genre = genre;
-        this.rating = rating;
         this.director = director;
         this.description = description;
     }

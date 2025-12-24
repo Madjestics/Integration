@@ -19,7 +19,6 @@ export default function MovieDetails(){
         <Card title={movie.title}>
             <p><strong>Year:</strong> {movie.year}</p>
             <p><strong>Duration:</strong> {movie.duration}</p>
-            <p><strong>Rating:</strong> {movie.rating}</p>
             <p><strong>Genre:</strong> {movie.genre}</p>
             <p><strong>Director:</strong> {movie.director}</p>
         </Card>

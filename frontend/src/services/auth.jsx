@@ -28,8 +28,9 @@ export function AuthProvider({ children }) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
         });
+        console.log(data);
         localStorage.setItem('token', data.token);
-        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('userId', data.userId.valueOf());
         document.cookie = `token=${data.token}; Path=/; SameSite=Lax`;
         const info = await apiFetch('/auth/info');
         setUser(info);

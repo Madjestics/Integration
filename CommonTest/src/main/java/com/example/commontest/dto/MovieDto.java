@@ -14,7 +14,6 @@ public class MovieDto {
     private String title;
     private Integer year;
     private LocalTime duration;
-    private Double rating;
     private String genre;
     private String director;
     private String description;

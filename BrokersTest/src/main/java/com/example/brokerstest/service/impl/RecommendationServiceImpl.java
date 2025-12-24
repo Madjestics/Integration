@@ -7,8 +7,7 @@ import com.example.commontest.dto.MovieDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -21,6 +20,11 @@ public class RecommendationServiceImpl implements RecommendationService {
 
     @Override
     public UserPreferences createUserPreferences(UserPreferences preferences) {
+        UserPreferences userPreferences = preferencesRepository.findByUserId(preferences.getUserId());
+        if (userPreferences != null && !CollectionUtils.isEmpty(preferences.getPreferredGenres())) {
+            userPreferences.getPreferredGenres().addAll(preferences.getPreferredGenres());
+            return preferencesRepository.save(userPreferences);
+        }
         return preferencesRepository.save(preferences);
     }
 

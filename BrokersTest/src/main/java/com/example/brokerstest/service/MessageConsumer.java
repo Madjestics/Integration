@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -92,7 +93,7 @@ public class MessageConsumer {
                 userPreferences.getPreferredGenres().add(movieGenre);
             }
         }
-        userPreferences.getRecommendedMovies().remove(movie);
+        userPreferences.getRecommendedMovies().removeIf(m -> Objects.equals(m.getId(), movie.getId()));
         preferencesRepository.save(userPreferences);
     }
 }

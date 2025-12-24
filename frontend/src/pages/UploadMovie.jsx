@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Upload, Button, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import {API_BASE_MAIN, apiFetch} from '../services/api';
+import {apiFetch} from '../services/api';
 
 export default function UploadMovie(){
     const { id } = useParams();
     const [fileList, setFileList] = useState([]);
 
     const props = {
-        beforeUpload: (file) => { setFileList([file]); return false; },
-        fileList,
-        onRemove: () => setFileList([])
+        fileList
     };
 
     async function submit() {
@@ -20,12 +18,8 @@ export default function UploadMovie(){
         form.append('movie', fileList[0]);
 
         try {
-            const token = localStorage.getItem('token');
-            const res = await fetch(API_BASE_MAIN + `/api/movie/upload/${id}`, {
+            const res = await apiFetch(`/api/movie/upload/${id}`, {
                 method: 'POST',
-                headers: {
-                    ...(token ? { Authorization: `Bearer ${token}` } : {})
-                },
                 body: form
             });
 
